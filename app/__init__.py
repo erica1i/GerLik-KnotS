@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, redirect, url_for
+from flask import Flask, render_template, session, request, redirect, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -38,9 +38,9 @@ def login():
                 session['username'] = request.form['username']
                 return redirect(url_for('dashboard'))
             else:
-                return 'Invalid password'
+                return render_template('login.html', message='Invalid login credentials')
         else:
-            return 'Invalid username'
+            return render_template('login.html', message='Invalid login credentials')
     return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -54,7 +54,18 @@ def signup():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html', username=session.get('username'))
+    if 'username' in session:
+        return render_template('dashboard.html', username=session.get('username'))
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/logout')
+def logout():
+    # Remove the username from the session
+    session.pop('username', None)
+
+    # Redirect the user to the login page
+    return redirect(url_for('login'))
 
 # if __name__ == '__main__':
 #     db.create_all()
