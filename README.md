@@ -15,7 +15,7 @@ Our primary goal is to create a dynamic and intuitive website that empowers indi
 1) open terminal and clone repo (with html or ssh)  
 ```$ git clone git@github.com:erica1i/GerLik-KnotS.git```  
 or  
-```$ git clone ```  
+```$ git clone https://github.com/erica1i/GerLik-KnotS.git```  
 2) install everything from requirements  
 ```$ pip install -r requirements.txt```  
 3) run ```__init__.py``` by running ```python __init__.py```, open the url in the command prompt (127.0.0.1:5000) in a browser   
