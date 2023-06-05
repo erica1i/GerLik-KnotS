@@ -17,3 +17,13 @@ PPROJECT 05
 firstL -- TIMESTAMP\n
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ShafiulH - 05/30 4:32 PM
+finished creating preliminary files and inputting skeleton files for the project
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ShafiulH - 06/05 8:00 AM
+initial observations from peers regarding design doc
+- SQLite is the correct name for the database
+- how would the APIs help create the expense tracker?
+- is there any information thats being exported there?
+- no sitemap, create one
+- too many js software that can all do the same thing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
