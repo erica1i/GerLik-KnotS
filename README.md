@@ -13,7 +13,7 @@ Our primary goal is to create a dynamic and intuitive website that empowers indi
 ---
 ## Launch codes:
 1) open terminal and clone repo (with html or ssh)  
-```$ git clone ```  
+```$ git clone git@github.com:erica1i/GerLik-KnotS.git```  
 or  
 ```$ git clone ```  
 2) install everything from requirements  
