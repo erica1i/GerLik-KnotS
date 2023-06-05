@@ -46,6 +46,8 @@ def login():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
+        if User.query.filter_by(username=request.form['username']).first():
+            return render_template('signup.html', message='Username already exists')
         new_user = User(username=request.form['username'], password=request.form['password'])
         db.session.add(new_user)
         db.session.commit()
