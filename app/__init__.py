@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, session, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expense_tracker.db'
+app.config['SECRET_KEY'] = 'cd85d99372e02261cc7fb70ef9b1ddfc'
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -34,6 +35,7 @@ def login():
         user = User.query.filter_by(username=request.form['username']).first()
         if user:
             if user.password == request.form['password']:
+                session['username'] = request.form['username']
                 return redirect(url_for('dashboard'))
             else:
                 return 'Invalid password'
@@ -52,7 +54,7 @@ def signup():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', username=session.get('username'))
 
 # if __name__ == '__main__':
 #     db.create_all()
