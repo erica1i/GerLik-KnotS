@@ -13,10 +13,11 @@ class User(db.Model):
 
 class Expense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, nullable=False)
-    expense = db.Column(db.Float, nullable=False)
-    category = db.Column(db.String(80), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    cost = db.Column(db.Float, nullable=False)
     date = db.Column(db.Date, nullable=False)
+    category = db.Column(db.String(50), nullable=False)
 
 class Budget(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -68,6 +69,41 @@ def logout():
 
     # Redirect the user to the login page
     return redirect(url_for('login'))
+
+@app.route('/report_expense', methods=['POST'])
+def report_expense():
+    # Get the form data
+    title = request.form.get('title')
+    cost = request.form.get('cost')
+    date = request.form.get('date')
+    category = request.form.get('category')
+
+    # TODO: Add the expense to the database
+
+    # Redirect the user back to the dashboard
+    return redirect(url_for('dashboard'))
+
+
+# @app.route('/report_expense', methods=['POST'])
+# def report_expense():
+#     # Get the form data
+#     title = request.form.get('title')
+#     cost = request.form.get('cost')
+#     date = request.form.get('date')
+#     category = request.form.get('category')
+
+#     # Get the current user
+#     user = User.query.filter_by(username=session['username']).first()
+
+#     # Create a new expense
+#     expense = Expense(title=title, cost=cost, date=date, category=category, user_id=user.id)
+
+#     # Add the expense to the database
+#     db.session.add(expense)
+#     db.session.commit()
+
+#     # Redirect the user back to the dashboard
+#     return redirect(url_for('dashboard'))
 
 # if __name__ == '__main__':
 #     db.create_all()
