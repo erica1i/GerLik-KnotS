@@ -30,30 +30,44 @@ class Budget(db.Model):
 def home():
     return render_template('home.html')
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        user = User.query.filter_by(username=request.form['username']).first()
-        if user:
-            if user.password == request.form['password']:
-                session['username'] = request.form['username']
-                return redirect(url_for('dashboard'))
-            else:
-                return render_template('login.html', message='Invalid login credentials')
-        else:
-            return render_template('login.html', message='Invalid login credentials')
-    return render_template('login.html')
+@app.route("/login", methods =['GET', 'POST'])
+def authenticate():
+    user = request.form['username']
+    passw = request.form['password']
+    #print(db.valid_login(user, passw))
+    
+    if db.valid_login(user, passw):
+        session['username'] = user
+        return render_template('home.html', msg = "successfully logged in")
+    else:
+        return render_template('login.html', msg="Login Failed")
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        if User.query.filter_by(username=request.form['username']).first():
-            return render_template('signup.html', message='Username already exists')
-        new_user = User(username=request.form['username'], password=request.form['password'])
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect(url_for('login'))
-    return render_template('signup.html')
+@app.route("/register", methods=['GET','POST'])
+def register_account():
+    if 'username' in session: #if someone tries to register while already logged in
+        return redirect(url_for('home'))
+
+    if request.method == 'GET':
+        return render_template('register.html')
+    user = request.form['newUser']
+    #user = request.form.get('newUser')
+    passw = request.form['newPass']
+    #passw = request.form.get('newPass')
+    passw2 = request.form['confirmPass']
+
+    if not passw == passw2: #checks if the password matches the confirmation password
+        return render_template("register.html", FAILMSG="Passwords don't match!")
+       
+    if db.user_exists(user):
+        return render_template('register.html', FAILMSG="Username is in use!")
+    else:
+        db.add_user(user, passw)
+        return render_template('login.html', FAILMSG = "User registered!, Log in with your new credentials.")
+
+@app.route("/logout", methods=['GET', 'POST'])
+def log_out():
+    session.pop('username', None)
+    return redirect('/')
 
 @app.route('/dashboard')
 def dashboard():
