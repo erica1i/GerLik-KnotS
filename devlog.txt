@@ -18,6 +18,7 @@ firstL -- TIMESTAMP\n
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ShafiulH - 05/30 4:32 PM
 finished creating preliminary files and inputting skeleton files for the project
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ShafiulH - 06/05 8:00 AM
 initial observations from peers regarding design doc
@@ -26,4 +27,8 @@ initial observations from peers regarding design doc
 - is there any information thats being exported there?
 - no sitemap, create one
 - too many js software that can all do the same thing
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+EricaL - 06/06 12:02
+- skeleton css & html templates set up
+- edited the skeleton code for __initi__.py
