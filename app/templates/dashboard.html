@@ -7,7 +7,7 @@
 <body>
     <h1>Dashboard</h1>
     <p>Welcome, {{ username }}!</p>
-    <a class="btn btn-primary" href="{{ url_for('logout') }}">Sign out</a>
+    <a class="btn btn-primary" href="logout">Sign out</a>
 
     <h2>Report Expense</h2>
     <form action="{{ url_for('report_expense') }}" method="post">
@@ -25,7 +25,7 @@
             <option value="housing">Housing</option>
             <option value="trips">Trips</option>
         </select><br>
-        <input type="submit" value="Submit">
+        <input class="btn btn-primary" type="submit" value="Submit">
     </form>    
 </body>
 </html>

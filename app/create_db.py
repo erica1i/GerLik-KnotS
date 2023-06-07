@@ -11,11 +11,11 @@ def create_database():
 
     # Create table - EXPENSES
     c.execute('''CREATE TABLE EXPENSES
-                 ([generated_id] INTEGER PRIMARY KEY,[user_id] integer, [expense] real, [category] text, [date] date)''')
+                 ([generated_id] INTEGER PRIMARY KEY,[user_id] INTEGER, [expense] REAL, [category] TEXT, [date] TEXT)''')
 
     # Create table - BUDGETS
     c.execute('''CREATE TABLE BUDGETS
-                 ([generated_id] INTEGER PRIMARY KEY,[user_id] integer, [budget] real, [category] text, [date] date)''')
+                 ([generated_id] INTEGER PRIMARY KEY,[user_id] INTEGER, [budget] REAL, [category] TEXT, [date] TEXT)''')
 
     conn.commit()
 
