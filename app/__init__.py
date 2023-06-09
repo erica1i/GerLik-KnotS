@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expense_tracker.db'
@@ -113,8 +114,11 @@ def report_expense():
     # Get the form data
     title = request.form.get('title')
     cost = request.form.get('cost')
-    date = request.form.get('date')
+    date_str = request.form.get('date')
     category = request.form.get('category')
+
+    # Convert the date string to a date object
+    date = datetime.strptime(date_str, '%Y-%m-%d').date()
 
     # Get the current user
     user = User.query.filter_by(username=session['username']).first()
