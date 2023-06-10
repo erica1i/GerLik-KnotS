@@ -28,12 +28,22 @@ initial observations from peers regarding design doc
 - no sitemap, create one
 - too many js software that can all do the same thing
 
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 EricaL - 06/06 12:02
 - skeleton css & html templates set up
 - edited the skeleton code for __initi__.py
 
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AaronG - 06/06 8:00 AM
+More observations from peers + Mr Mykolyk:
+-site map needs redirection from bottom level of web pages
+-Peer Programmed with Kosta to resolve merge conflicts
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 KostaD - 06/06 11:50
 - Set up skeleton app — app structure, app files
 - Set up python files—main/__init__
@@ -45,3 +55,7 @@ KostaD - 06/06 11:50
 KostaD - 06/07 09:25
 - Debugged merge errors
 - Set up expenses reporting via form in dashboard, setting up data submission ASAP we can start generating graphs w/ JS(hardest part probably)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AaronG - 06/06 8:00 AM
+-Taking over chart creation, but need the database problems to be resolved first
