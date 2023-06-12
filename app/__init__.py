@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, request, redirect, url_for, a
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import plotly.express as px
+import plotly.graph_objects as go
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expense_tracker.db'
@@ -58,27 +59,6 @@ def login():
              return render_template('login.html', message='Invalid login credentials')
      return render_template('login.html')
 
-# @app.route("/register", methods=['GET','POST'])
-# def register_account():
-#     if 'username' in session: #if someone tries to register while already logged in
-#         return redirect(url_for('home'))
-
-#     if request.method == 'GET':
-#         return render_template('register.html')
-#     user = request.form['newUser']
-#     #user = request.form.get('newUser')
-#     passw = request.form['newPass']
-#     #passw = request.form.get('newPass')
-#     passw2 = request.form['confirmPass']
-
-#     if not passw == passw2: #checks if the password matches the confirmation password
-#         return render_template("register.html", FAILMSG="Passwords don't match!")
-
-#     if db.user_exists(user):
-#         return render_template('register.html', FAILMSG="Username is in use!")
-#     else:
-#         db.add_user(user, passw)
-#         return render_template('login.html', FAILMSG = "User registered!, Log in with your new credentials.")
 @app.route('/register', methods=['GET', 'POST'])
 def register():
      if request.method == 'POST':
@@ -166,20 +146,21 @@ def report_expense():
 
 #     # Redirect the user back to the dashboard
 #     return redirect(url_for('dashboard'))
-import plotly.graph_objects as go
 
-x=['b', 'a', 'c', 'd']
-fig = go.Figure(go.Bar(x=x, y=[2,5,1,9], name='Montreal'))
-fig.add_trace(go.Bar(x=x, y=[1, 4, 9, 16], name='Ottawa'))
-fig.add_trace(go.Bar(x=x, y=[6, 8, 4.5, 8], name='Toronto'))
+@app.route('/chart', methods=['POST', 'GET'])
+def chart():
+    x=['b', 'a', 'c', 'd']
+    fig = go.Figure(go.Bar(x=x, y=[2,5,1,9], name='Montreal'))
+    fig.add_trace(go.Bar(x=x, y=[1, 4, 9, 16], name='Ottawa'))
+    fig.add_trace(go.Bar(x=x, y=[6, 8, 4.5, 8], name='Toronto'))
+    fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
+    fig.show()
 
-fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
-fig.show()
+#if __name__ == '__main__':
+   # with app.app_context():
+      #  db.create_all()
+   # app.run(debug=True, port=5001)
 
-# if __name__ == '__main__':
-#     db.create_all()
-#     app.run(debug=True)
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True, port=5001)
+if __name__ == "__main__":  # true if this file NOT imported
+    app.debug = True        # enable auto-reload upon code change
+    app.run(host = '0.0.0.0')
