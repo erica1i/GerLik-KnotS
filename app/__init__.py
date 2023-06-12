@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import plotly.express as px
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expense_tracker.db'
@@ -26,6 +27,18 @@ class Budget(db.Model):
     budget = db.Column(db.Float, nullable=False)
     category = db.Column(db.String(80), nullable=False)
     date = db.Column(db.Date, nullable=False)
+
+# experience_dict = {'Programming Language': ['Excel', 'Python', 'Tableau', 'R', 'Bash', 'Powershell'],
+#                     'Years of Experience (As of April 2022)': [8,4,3,2,1,1]}
+# fig = px.bar(experience_dict, x='Programming Language',y='Years of Experience (As of April 2022)', color_discrete_sequence=['white'])
+# fig.update_layout (
+#     paper_bgcolor' : "rgba (0,0,0,0)"
+#     # plot_bgcolor : "rgba (0,0,0,0)"
+#     font_color = 'white',
+#     font_family = ' verdana
+#     font_size = 20,
+# )
+
 
 @app.route('/')
 def home():
@@ -60,7 +73,7 @@ def login():
 
 #     if not passw == passw2: #checks if the password matches the confirmation password
 #         return render_template("register.html", FAILMSG="Passwords don't match!")
-       
+
 #     if db.user_exists(user):
 #         return render_template('register.html', FAILMSG="Username is in use!")
 #     else:
@@ -153,6 +166,15 @@ def report_expense():
 
 #     # Redirect the user back to the dashboard
 #     return redirect(url_for('dashboard'))
+import plotly.graph_objects as go
+
+x=['b', 'a', 'c', 'd']
+fig = go.Figure(go.Bar(x=x, y=[2,5,1,9], name='Montreal'))
+fig.add_trace(go.Bar(x=x, y=[1, 4, 9, 16], name='Ottawa'))
+fig.add_trace(go.Bar(x=x, y=[6, 8, 4.5, 8], name='Toronto'))
+
+fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
+fig.show()
 
 # if __name__ == '__main__':
 #     db.create_all()
