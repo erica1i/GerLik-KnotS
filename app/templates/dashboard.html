@@ -46,22 +46,22 @@
                 Expense Submission
             </div>
             <div class="card-body">
-                <form>
+                <form action="{{ url_for('report_expense') }}" method="post">
                     <div class="mb-3">
-                        <label for="expense-title" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="expense-title" name="expense-title" required>
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
                     </div>
                     <div class="mb-3">
-                        <label for="expense-amount" class="form-label">Amount</label>
-                        <input type="number" class="form-control" id="expense-amount" name="expense-amount" required>
+                        <label for="cost" class="form-label">Amount</label>
+                        <input type="number" class="form-control" id="cost" name="cost" required>
                     </div>
                     <div class="mb-3">
-                        <label for="expense-date" class="form-label">Date</label>
-                        <input type="date" class="form-control" id="expense-date" name="expense-date" required>
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
                     </div>
                     <div class="mb-3">
-                        <label for="expense-category" class="form-label">Category</label>
-                        <select class="form-select" id="expense-category" name="expense-category" required>
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-select" id="category" name="category" required>
                             <option value="bills">Bills</option>
                             <option value="entertainment">Entertainment</option>
                             <option value="food">Food</option>
@@ -73,6 +73,7 @@
                 </form>
             </div>
         </div>
+
 <!--         
         <form action="{{ url_for('report_expense') }}" method="post">
             <label for="title">Title:</label><br>

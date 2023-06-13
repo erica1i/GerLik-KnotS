@@ -37,7 +37,40 @@
 <body>
     <div class="content-container">
         <h1 class="mb-2 border-bottom border-3 p-2 px-0">Expenses</h1>
-
+        <br>
+        <div class="card">
+            <div class="card-header">
+                Expense Submission
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('report_expense') }}" method="post">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cost" class="form-label">Amount</label>
+                        <input type="number" class="form-control" id="cost" name="cost" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-select" id="category" name="category" required>
+                            <option value="bills">Bills</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="food">Food</option>
+                            <option value="housing">Housing</option>
+                            <option value="trips">Trips</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+        <br>
         <h2>Your Expenses:</h2> 
         <div class="mb-5 border-bottom border-3">
             <table>

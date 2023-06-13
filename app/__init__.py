@@ -99,7 +99,7 @@ def report_expense():
     date = datetime.strptime(date_str, '%Y-%m-%d').date()
     data = [username, cost, title, category, date]
     import_expense(data)
-    return redirect(url_for('dashboard'))
+    return redirect(url_for('expenses'))
 
 @app.route('/chart', methods=['POST', 'GET'])
 def chart():
