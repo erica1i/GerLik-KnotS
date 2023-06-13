@@ -28,11 +28,7 @@
         </select><br>
         <input class="btn btn-primary" type="submit" value="Submit">
     </form>
-    <h2>Your Expenses:</h2>
-    <script>
-        let data = {{ data|tojson }};  // convert the data to JSON
-        console.log(data);  // log the data
-    </script>    
+    <h2>Your Expenses:</h2> 
     <canvas id="expenseForm"></canvas>
     <canvas id="expenseChart"></canvas>
     <script src="../static/js/dashboard.js"></script>
