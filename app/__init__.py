@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template, session, request, redirect, url_for, abort
 from datetime import datetime
 from db import *
-import plotly.graph_objs as go
+# import plotly.graph_objs as go
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cd85d99372e02261cc7fb70ef9b1ddfc'
@@ -78,7 +78,6 @@ def dashboard():
     if 'username' in session:
         username = session['username']
         data = get_expense(username)
-        print(data)
         # return render_template('dashboard.html', username=username, data=data)
         return render_template('dashboard.html', username=username, data=data)
     else:
@@ -120,8 +119,18 @@ def chart():
 def get_expenditures_by_category():
     # Retrieve the user's expenditures by category data from the database
     # and organize it as a dictionary
-    expenditures = {'bills': 12000.0, 'entertainment': 5000.0, 'food': 3000.0, 'housing': 20000.0}
-    return jsonify(expenditures)
+    if 'username' in session:
+        username = session['username']
+        data = get_expense(username)
+        expenditures = {}
+        for row in data:
+            print(f'row: {row}')
+            if row[0] not in expenditures:
+                expenditures[row[0]] = 0
+            expenditures[row[0]] += row[1]
+        
+
+        return jsonify(expenditures)
 
 if __name__ == "__main__":  # true if this file NOT imported
     app.debug = True        # enable auto-reload upon code change

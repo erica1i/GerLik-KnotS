@@ -14,7 +14,7 @@
     <form action="{{ url_for('report_expense') }}" method="post">
         <label for="title">Title:</label><br>
         <input type="text" id="title" name="title"><br>
-        <label for="cost">Cost:</label><br>
+        <label for="cost">Cost($):</label><br>
         <input type="number" id="cost" name="cost" step="0.01"><br>
         <label for="date">Date:</label><br>
         <input type="date" id="date" name="date"><br>
@@ -29,7 +29,26 @@
         <input class="btn btn-primary" type="submit" value="Submit">
     </form>
     <h2>Your Expenses:</h2> 
-    <p>{{ data }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Cost</th>
+                <th>Title</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     <canvas id="expenseForm"></canvas>
     <canvas id="expenseChart"></canvas>
     <canvas id="expenditureChart"></canvas>
