@@ -1,4 +1,4 @@
-# GarlicKnots by GarLik-KnotS
+# GarlicKnots by GerLik-KnotS
 
 ## Roster and Roles:
  * Erica Li (PM) 
