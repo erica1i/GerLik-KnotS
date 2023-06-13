@@ -8,11 +8,21 @@
     <title>Welcome to Expense Tracker!</title>
 </head>
 <body>
-    <h1>Welcome to Expense Tracker!</h1>
-    <h5>By the GerLik-KnotS</h5>
-    <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
-    <a class="btn btn-primary" href="{{ url_for('register') }}">Sign Up</a>
 
-    
+    <body>
+        <div class="card text-center mb-3" style="width: 30rem;">
+            <div class="card-body">
+              <h1 class="card-title"> <b> Welcome to Expense Tracker! </b></h1>
+              <h5 class="card-title"> By the GerLik-KnotS </h5>
+
+              <fieldset class="cell small-12 p-2">
+                <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+              </fieldset>
+
+              <fieldset class="cell small-12 p-2">
+                <a class="btn btn-primary" href="{{ url_for('register') }}">Sign Up</a>
+              </fieldset>
+            </div>
+        </div>
 </body>
 </html>
