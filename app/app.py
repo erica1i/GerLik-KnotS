@@ -88,40 +88,18 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
-# @app.route('/report_expense', methods=['POST'])
-# def report_expense():
-#     # Get the form data
-#     title = request.form.get('title')
-#     cost = request.form.get('cost')
-#     date = request.form.get('date')
-#     category = request.form.get('category')
-
-#     # TODO: Add the expense to the database
-
-#     # Redirect the user back to the dashboard
-#     return redirect(url_for('dashboard'))
 @app.route('/report_expense', methods=['POST'])
 def report_expense():
     # Get the form data
+    username = session['username']
     title = request.form.get('title')
     cost = request.form.get('cost')
     date_str = request.form.get('date')
     category = request.form.get('category')
-
-    # Convert the date string to a date object
     date = datetime.strptime(date_str, '%Y-%m-%d').date()
+    data = [username, cost, title, category, date]
+    import_expense(data)
 
-    # Get the current user
-    user = User.query.filter_by(username=session['username']).first()
-
-    # Create a new expense
-    expense = Expense(title=title, cost=cost, date=date, category=category, user_id=user.id)
-
-    # Add the expense to the database
-    db.session.add(expense)
-    db.session.commit()
-
-    # Redirect the user back to the dashboard
     return redirect(url_for('dashboard'))
 
 # @app.route('/report_expense', methods=['POST'])
@@ -186,11 +164,10 @@ def chart():
 #     print(expenses)
 #     # Convert the data to JSON and return it
 #     return jsonify(expenses)
-
-# <!-- <script>
-#         let data = {{ data|tojson }};  // convert the data to JSON
-#         console.log(data);  // log the data
-#     </script>      -->
+    # <script>
+    #     let data = {{ data|tojson }};  // convert the data to JSON
+    #     console.log(data);  // log the data
+    # </script>
 
 if __name__ == "__main__":  # true if this file NOT imported
     app.debug = True        # enable auto-reload upon code change

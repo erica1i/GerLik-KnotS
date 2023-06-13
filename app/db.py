@@ -1,5 +1,4 @@
 from flask import Flask, session, jsonify, render_template, redirect, url_for, request as flask_request
-from db import *
 import http.client
 import sqlite3
 import json
@@ -9,9 +8,9 @@ DB_FILE = "expense_tracker.db"
 db = sqlite3.connect(DB_FILE, check_same_thread = False)
 c = db.cursor()
 
-c.execute("""CREATE TABLE IF NOT EXISTS users(username TEXT UNIQUE, password TEXT)""")
-c.execute('''CREATE TABLE IF NOT EXISTS expenses(username TEXT UNIQUE, expense REAL, category TEXT, date TEXT)''')
-c.execute('''CREATE TABLE IF NOT EXISTS budgets(username TEXT UNIQUE, budget REAL, category TEXT, date TEXT)''')
+c.execute('''CREATE TABLE IF NOT EXISTS users(username TEXT UNIQUE, password TEXT)''')
+c.execute('''CREATE TABLE IF NOT EXISTS expenses(username TEXT UNIQUE, expense REAL, title TEXT, category TEXT, date TEXT)''')
+c.execute('''CREATE TABLE IF NOT EXISTS budgets(username TEXT UNIQUE, budget REAL, title TEXT, category TEXT, date TEXT)''')
 
 # def get_expenses_by_category(user_id):
 #     db = sqlite3.connect(DB_FILE)
@@ -73,6 +72,22 @@ def change_pw(username, new_pw):
     c.execute("UPDATE users SET password = ? WHERE username=?", (new_pw, username))
     db.commit()
     db.close()
+
+def import_expense(stored_data):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("insert into expenses values (?,?,?,?,?);", stored_data)
+    db.commit()
+    db.close()
+
+def import_budgets(stored_data):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("insert into budgets values (?,?,?,?,?);", stored_data)
+    db.commit()
+    db.close()
+
+
 
 # def get_expenses_by_category(username):
 #     # user_id = session.get('user_id')
