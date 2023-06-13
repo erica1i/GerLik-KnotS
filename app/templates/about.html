@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="static/css/style.css" rel="stylesheet">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/dashboard">Expense Tracker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/expenses">Expenses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/budget">Budget</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                </ul>
+                <div class="nav-item">
+                    <a class="btn btn-primary position-relative" href="logout">Sign out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</head>
+<body>
+    <div class="content-container">
+        <h1>Budget</h1>
+        <br>
+        <h4 class="text-success">Welcome, {{ username }}!</h4>
+        <p><b>Erica:</b>
+            Hi, I'm Erica, a computer science student with a passion for data analysis and financial management. I am thrilled to be part of this project focused on expenses and budgeting. I enjoy exploring how technology can empower individuals to make informed financial decisions. With my strong programming skills and attention to detail, I will contribute to developing robust algorithms and data visualization techniques. Together, let's create a user-friendly platform that will help people gain control over their expenses and achieve their financial goals!
+            <br>
+            <br>
+
+            <b>Aaron:</b>
+            Greetings! I'm Aaron, a computer science enthusiast who finds joy in tackling real-world challenges. My interest in finance and programming converge perfectly in this project about expenses and budget management. I have a knack for developing efficient algorithms and optimizing code. By leveraging my analytical mindset and problem-solving skills, I aim to build a comprehensive system that simplifies expense tracking and budget planning. Together, let's create a practical solution that empowers users to take charge of their financial well-being.
+            <br>
+            <br>
+            
+            <b>Kosta:</b>
+            Hey there, I'm Kosta, a computer science student with a strong inclination towards financial applications. Joining this project on expenses and budgeting aligns perfectly with my interests. With my expertise in web development and database management, I am excited to design an intuitive and secure platform. I'll focus on creating an interactive user interface and implementing reliable data storage systems. By collaborating with the team, I am determined to deliver a solution that enhances users' financial awareness and helps them make informed decisions.
+            <br>
+            <br>
+
+            <b>Shafiul:</b>
+            Greetings, everyone! I'm Shafiul, a passionate computer science student fascinated by the intersection of technology and personal finance. Being part of this expenses and budget project allows me to combine my programming skills with my interest in financial management. I have experience in data analysis and visualization, which will contribute to creating insightful reports and visual representations of users' financial data. Let's work together to build a robust and user-friendly application that empowers individuals to optimize their expenses, plan budgets, and achieve financial stability.</p>
+        <a class="btn btn-primary" href="logout">Sign out</a>
+    </div>
+</body>

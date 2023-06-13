@@ -132,6 +132,35 @@ def get_expenditures_by_category():
 
         return jsonify(expenditures)
 
+
+@app.route('/expenses')
+def expenses():
+    if 'username' in session:
+        username = session['username']
+        data = get_expense(username)
+        return render_template('expenses.html', username=username, data=data)
+    else:
+        return redirect(url_for('login'))
+    
+@app.route('/budget')
+def budget():
+    if 'username' in session:
+        username = session['username']
+        data = get_expense(username)
+        return render_template('budget.html', username=username, data=data)
+    else:
+        return redirect(url_for('login'))
+    
+
+@app.route('/about')
+def about():
+    if 'username' in session:
+        username = session['username']
+        data = get_expense(username)
+        return render_template('about.html', username=username, data=data)
+    else:
+        return redirect(url_for('login'))
+
 if __name__ == "__main__":  # true if this file NOT imported
     app.debug = True        # enable auto-reload upon code change
     app.run(host = '0.0.0.0', port=80)

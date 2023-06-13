@@ -36,83 +36,33 @@
 </head>
 <body>
     <div class="content-container">
-        <h1>Dashboard</h1>
-        <p>Welcome, {{ username }}!</p>
+        <h1 class="mb-2 border-bottom border-3 p-2 px-0">Expenses</h1>
 
-
-        <h2>Report Expense</h2>
-        <div class="card">
-            <div class="card-header">
-                Expense Submission
-            </div>
-            <div class="card-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="expense-title" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="expense-title" name="expense-title" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="expense-amount" class="form-label">Amount</label>
-                        <input type="number" class="form-control" id="expense-amount" name="expense-amount" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="expense-date" class="form-label">Date</label>
-                        <input type="date" class="form-control" id="expense-date" name="expense-date" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="expense-category" class="form-label">Category</label>
-                        <select class="form-select" id="expense-category" name="expense-category" required>
-                            <option value="bills">Bills</option>
-                            <option value="entertainment">Entertainment</option>
-                            <option value="food">Food</option>
-                            <option value="housing">Housing</option>
-                            <option value="trips">Trips</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </div>
-<!--         
-        <form action="{{ url_for('report_expense') }}" method="post">
-            <label for="title">Title:</label><br>
-            <input type="text" id="title" name="title"><br>
-            <label for="cost">Cost($):</label><br>
-            <input type="number" id="cost" name="cost" step="0.01"><br>
-            <label for="date">Date:</label><br>
-            <input type="date" id="date" name="date"><br>
-            <label for="category">Category:</label><br>
-            <select id="category" name="category">
-                <option value="bills">Bills</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="food">Food</option>
-                <option value="housing">Housing</option>
-                <option value="trips">Trips</option>
-            </select><br>
-            <input class="btn btn-primary" type="submit" value="Submit">
-        </form> -->
-        <!-- <h2>Your Expenses:</h2> 
-        <table>
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Cost</th>
-                    <th>Title</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in data %}
+        <h2>Your Expenses:</h2> 
+        <div class="mb-5 border-bottom border-3">
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ row[0] }}</td>
-                        <td>{{ row[1] }}</td>
-                        <td>{{ row[2] }}</td>
-                        <td>{{ row[3] }}</td>
+                        <th>Category</th>
+                        <th>Cost</th>
+                        <th>Title</th>
+                        <th>Date</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table> -->
-        <!-- <canvas id="expenseForm"></canvas>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+        </div>
+        <canvas id="expenseForm"></canvas>
         <canvas id="expenseChart"></canvas>
         <canvas id="expenditureChart" style=""></canvas>
 
@@ -140,13 +90,12 @@
                         });
                     });
             });
-        </script> -->
+        </script>
         
 
         <script src="../static/js/dashboard.js"></script>
         <script src="../static/js/expenses.js"></script>
         <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
         <script src="{{ url_for('static', filename='js/expenses.js') }}"></script>
-    </div> 
+    </div>
 </body>
-</html>
