@@ -1,34 +1,30 @@
 from flask import Flask, jsonify, render_template, session, request, redirect, url_for, abort
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from db import *
 import plotly.graph_objs as go
 
-from db_utils import get_expenses_by_category, get_user_id_by_username
-
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expense_tracker.db'
 app.config['SECRET_KEY'] = 'cd85d99372e02261cc7fb70ef9b1ddfc'
-db = SQLAlchemy(app)
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(120), nullable=False)
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(80), unique=True, nullable=False)
+#     password = db.Column(db.String(120), nullable=False)
 
-class Expense(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    title = db.Column(db.String(100), nullable=False)
-    cost = db.Column(db.Float, nullable=False)
-    date = db.Column(db.Date, nullable=False)
-    category = db.Column(db.String(50), nullable=False)
+# class Expense(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+#     title = db.Column(db.String(100), nullable=False)
+#     cost = db.Column(db.Float, nullable=False)
+#     date = db.Column(db.Date, nullable=False)
+#     category = db.Column(db.String(50), nullable=False)
 
-class Budget(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, nullable=False)
-    budget = db.Column(db.Float, nullable=False)
-    category = db.Column(db.String(80), nullable=False)
-    date = db.Column(db.Date, nullable=False)
+# class Budget(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, nullable=False)
+#     budget = db.Column(db.Float, nullable=False)
+#     category = db.Column(db.String(80), nullable=False)
+#     date = db.Column(db.Date, nullable=False)
 
 # experience_dict = {'Programming Language': ['Excel', 'Python', 'Tableau', 'R', 'Bash', 'Powershell'],
 #                     'Years of Experience (As of April 2022)': [8,4,3,2,1,1]}
@@ -41,7 +37,6 @@ class Budget(db.Model):
 #     font_size = 20,
 # )
 
-
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -49,27 +44,29 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
      if request.method == 'POST':
-         user = User.query.filter_by(username=request.form['username']).first()
-         if user:
-             if user.password == request.form['password']:
-                 session['username'] = request.form['username']
-                 return redirect(url_for('dashboard'))
-             else:
-                 return render_template('login.html', message='Invalid login credentials')
-         else:
-             return render_template('login.html', message='Invalid login credentials')
+        username = request.form['username']
+        if check_user_exist(username):
+            print(get_password(username))
+            print(request.form['password'])
+            if get_password(username) == request.form['password']:
+                session['username'] = request.form['username']
+                return redirect('/dashboard')
+            else:
+                return render_template('login.html', message='Invalid login credentials')
+        else:
+            return render_template('login.html', message='Invalid login credentials')
      return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-     if request.method == 'POST':
-         if User.query.filter_by(username=request.form['username']).first():
-             return render_template('register.html', message='Username already exists')
-         new_user = User(username=request.form['username'], password=request.form['password'])
-         db.session.add(new_user)
-         db.session.commit()
-         return redirect(url_for('login'))
-     return render_template('register.html')
+    if request.method == 'POST':
+        username = request.form['username']
+        if check_user_exist(username):
+            return render_template('register.html', message='Username already exists')
+        userpw = [username, request.form['password']]
+        new_user(userpw)
+        return redirect(url_for('login'))
+    return render_template('register.html')
 
 @app.route("/logout", methods=['GET', 'POST'])
 def log_out():
@@ -80,19 +77,15 @@ def log_out():
 def dashboard():
     if 'username' in session:
         username = session['username']
-        user_id = get_user_id_by_username(username)
-        data = get_expenses_by_category(user_id)
-        print(data)
-        return render_template('dashboard.html', username=username, data=data)
+        # data = get_expenses_by_category(username)
+        # return render_template('dashboard.html', username=username, data=data)
+        return render_template('dashboard.html', username=username)
     else:
         return redirect(url_for('login'))
 
 @app.route('/logout')
 def logout():
-    # Remove the username from the session
     session.pop('username', None)
-
-    # Redirect the user to the login page
     return redirect(url_for('login'))
 
 # @app.route('/report_expense', methods=['POST'])
@@ -161,19 +154,19 @@ def chart():
     fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
     fig.show()
 
-from sqlalchemy import func
-from flask_login import current_user
+# from sqlalchemy import func
+# from flask_login import current_user
 # from app import db
 # from app.models import Expense
 
-def get_expenses_by_category(user_id):
-    # Query the database
-    results = db.session.query(Expense.category, func.sum(Expense.cost)).filter_by(user_id=user_id).group_by(Expense.category).all()
+# def get_expenses_by_category(user_id):
+#     # Query the database
+#     results = db.session.query(Expense.category, func.sum(Expense.cost)).filter_by(user_id=user_id).group_by(Expense.category).all()
 
-    # Convert the results to a dictionary
-    expenses_by_category = {category: total for category, total in results}
+#     # Convert the results to a dictionary
+#     expenses_by_category = {category: total for category, total in results}
 
-    return expenses_by_category
+#     return expenses_by_category
 
 # @app.route('/expenses_by_category')
 # def expenses_by_category():
@@ -194,11 +187,10 @@ def get_expenses_by_category(user_id):
 #     # Convert the data to JSON and return it
 #     return jsonify(expenses)
 
-
-#if __name__ == '__main__':
-   # with app.app_context():
-      #  db.create_all()
-   # app.run(debug=True, port=5001)
+# <!-- <script>
+#         let data = {{ data|tojson }};  // convert the data to JSON
+#         console.log(data);  // log the data
+#     </script>      -->
 
 if __name__ == "__main__":  # true if this file NOT imported
     app.debug = True        # enable auto-reload upon code change
