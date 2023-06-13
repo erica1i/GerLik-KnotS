@@ -95,3 +95,12 @@ def get_expense(username):
     db.commit()
     db.close()
     return data
+
+def get_budget(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT category, budget, title, date FROM budgets WHERE username = ?", (username,))
+    data = c.fetchall()
+    db.commit()
+    db.close()
+    return data
