@@ -1,7 +1,9 @@
-from flask import Flask, render_template, session, request, redirect, url_for, abort
+from flask import Flask, jsonify, render_template, session, request, redirect, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import plotly.graph_objs as go
 
+from db_utils import get_expenses_by_category, get_user_id_by_username
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expense_tracker.db'
@@ -77,7 +79,11 @@ def log_out():
 @app.route('/dashboard')
 def dashboard():
     if 'username' in session:
-        return render_template('dashboard.html', username=session.get('username'))
+        username = session['username']
+        user_id = get_user_id_by_username(username)
+        data = get_expenses_by_category(user_id)
+        print(data)
+        return render_template('dashboard.html', username=username, data=data)
     else:
         return redirect(url_for('login'))
 
@@ -154,6 +160,40 @@ def chart():
     fig.add_trace(go.Bar(x=x, y=[6, 8, 4.5, 8], name='Toronto'))
     fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
     fig.show()
+
+from sqlalchemy import func
+from flask_login import current_user
+# from app import db
+# from app.models import Expense
+
+def get_expenses_by_category(user_id):
+    # Query the database
+    results = db.session.query(Expense.category, func.sum(Expense.cost)).filter_by(user_id=user_id).group_by(Expense.category).all()
+
+    # Convert the results to a dictionary
+    expenses_by_category = {category: total for category, total in results}
+
+    return expenses_by_category
+
+# @app.route('/expenses_by_category')
+# def expenses_by_category():
+#     # Assuming you have a function `get_expenses_by_category(user_id)` that returns a dictionary
+#     # where the keys are categories and the values are the total expenses for that category.
+#     expenses = get_expenses_by_category(current_user.id)
+#     return jsonify(expenses)
+
+# @app.route('/expenses_by_category')
+# def expenses_by_category():
+#     # Make sure the user is logged in
+#     if 'user_id' not in session:
+#         return redirect(url_for('login'))
+
+#     # Get the user's expenses by category
+#     expenses = get_expenses_by_category(session['user_id'])
+#     print(expenses)
+#     # Convert the data to JSON and return it
+#     return jsonify(expenses)
+
 
 #if __name__ == '__main__':
    # with app.app_context():
