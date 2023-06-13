@@ -59,3 +59,43 @@ KostaD - 06/07 09:25
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AaronG - 06/06 8:00 AM
 -Taking over chart creation, but need the database problems to be resolved first
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AaronG - 06/07 8:00 AM
+More observations from peers + Mr Mykolyk:
+-site map needs redirection from bottom level of web pages
+-Peer Programmed with Kosta to resolve merge conflicts
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+KostaD - 06/12 11:50
+-Worked on creating the Chart implemetation with the help of Aaron
+-Worked on making the Nav Bar with multiple pages
+-created multiple pages including About me, Expenses, Budget, and sign out
+-Worked for about 3ish hours to host droplet, but no success
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Shafiul - 06/12 11:50
+- Database Maestro: Recoded the entire database so that the information would be quick and accessible
+- Made sure Kosta Was able to implement his forms + chart with the database info
+- Front-line warrior in the Droplet Conflict, watched youtube videos for hours on how to host the flask app, but it didn't work
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Erica - 06/12 11:50
+-Worked to beautify our CSS and HTML
+-found colorful/worldly images and added them to our pages
+-made sure HTML was compatible with CSS
+-Worked to find links on Droplet resources to help our cause
+-Reached out to multiple other groups and consulted the QAF to help
+-Took video over zoom
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AaronG - 06/12 8:00 AM
+-Peer Programmed with Kosta and Shafiul to make sure that the Charts were working with the Database
+-Researched chart implementation (there is a huge variety)
+-Facilitated group communication through the use of multiple zoom meetings (40 min limit)
+-Worked to provide documentation on droplet implementation, but it became really hard to follow, and we encountered obscure erros
+
+
+
