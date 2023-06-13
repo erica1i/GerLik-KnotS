@@ -77,7 +77,8 @@ def log_out():
 def dashboard():
     if 'username' in session:
         username = session['username']
-        # data = get_expenses_by_category(username)
+        data = get_expense(username)
+        print(data)
         # return render_template('dashboard.html', username=username, data=data)
         return render_template('dashboard.html', username=username)
     else:
@@ -99,29 +100,7 @@ def report_expense():
     date = datetime.strptime(date_str, '%Y-%m-%d').date()
     data = [username, cost, title, category, date]
     import_expense(data)
-
     return redirect(url_for('dashboard'))
-
-# @app.route('/report_expense', methods=['POST'])
-# def report_expense():
-#     # Get the form data
-#     title = request.form.get('title')
-#     cost = request.form.get('cost')
-#     date = request.form.get('date')
-#     category = request.form.get('category')
-
-#     # Get the current user
-#     user = User.query.filter_by(username=session['username']).first()
-
-#     # Create a new expense
-#     expense = Expense(title=title, cost=cost, date=date, category=category, user_id=user.id)
-
-#     # Add the expense to the database
-#     db.session.add(expense)
-#     db.session.commit()
-
-#     # Redirect the user back to the dashboard
-#     return redirect(url_for('dashboard'))
 
 @app.route('/chart', methods=['POST', 'GET'])
 def chart():
@@ -132,38 +111,6 @@ def chart():
     fig.update_layout(barmode='stack', xaxis={'categoryorder':'total descending'})
     fig.show()
 
-# from sqlalchemy import func
-# from flask_login import current_user
-# from app import db
-# from app.models import Expense
-
-# def get_expenses_by_category(user_id):
-#     # Query the database
-#     results = db.session.query(Expense.category, func.sum(Expense.cost)).filter_by(user_id=user_id).group_by(Expense.category).all()
-
-#     # Convert the results to a dictionary
-#     expenses_by_category = {category: total for category, total in results}
-
-#     return expenses_by_category
-
-# @app.route('/expenses_by_category')
-# def expenses_by_category():
-#     # Assuming you have a function `get_expenses_by_category(user_id)` that returns a dictionary
-#     # where the keys are categories and the values are the total expenses for that category.
-#     expenses = get_expenses_by_category(current_user.id)
-#     return jsonify(expenses)
-
-# @app.route('/expenses_by_category')
-# def expenses_by_category():
-#     # Make sure the user is logged in
-#     if 'user_id' not in session:
-#         return redirect(url_for('login'))
-
-#     # Get the user's expenses by category
-#     expenses = get_expenses_by_category(session['user_id'])
-#     print(expenses)
-#     # Convert the data to JSON and return it
-#     return jsonify(expenses)
     # <script>
     #     let data = {{ data|tojson }};  // convert the data to JSON
     #     console.log(data);  // log the data

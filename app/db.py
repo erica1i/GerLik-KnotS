@@ -9,8 +9,8 @@ db = sqlite3.connect(DB_FILE, check_same_thread = False)
 c = db.cursor()
 
 c.execute('''CREATE TABLE IF NOT EXISTS users(username TEXT UNIQUE, password TEXT)''')
-c.execute('''CREATE TABLE IF NOT EXISTS expenses(username TEXT UNIQUE, expense REAL, title TEXT, category TEXT, date TEXT)''')
-c.execute('''CREATE TABLE IF NOT EXISTS budgets(username TEXT UNIQUE, budget REAL, title TEXT, category TEXT, date TEXT)''')
+c.execute('''CREATE TABLE IF NOT EXISTS expenses(username TEXT, expense REAL, title TEXT, category TEXT, date TEXT)''')
+c.execute('''CREATE TABLE IF NOT EXISTS budgets(username TEXT, budget REAL, title TEXT, category TEXT, date TEXT)''')
 
 # def get_expenses_by_category(user_id):
 #     db = sqlite3.connect(DB_FILE)
@@ -87,15 +87,11 @@ def import_budgets(stored_data):
     db.commit()
     db.close()
 
-
-
-# def get_expenses_by_category(username):
-#     # user_id = session.get('user_id')
-#     # user_id = get_user_id_by_username(session.get('username'))
-#     db = sqlite3.connect(DB_FILE)
-#     c = db.cursor()
-#     c.execute("SELECT category, SUM(expense) FROM expenses WHERE username = ? GROUP BY category", (username,))
-#     data = c.fetchall()
-#     db.commit()
-#     db.close()
-#     return data
+def get_expense(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT category, expense, title, date FROM expenses WHERE username = ?", (username,))
+    data = c.fetchall()
+    db.commit()
+    db.close()
+    return data
