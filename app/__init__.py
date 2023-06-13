@@ -80,7 +80,7 @@ def dashboard():
         data = get_expense(username)
         print(data)
         # return render_template('dashboard.html', username=username, data=data)
-        return render_template('dashboard.html', username=username)
+        return render_template('dashboard.html', username=username, data=data)
     else:
         return redirect(url_for('login'))
 
@@ -116,6 +116,13 @@ def chart():
     #     console.log(data);  // log the data
     # </script>
 
+@app.route('/get_expenditures_by_category')
+def get_expenditures_by_category():
+    # Retrieve the user's expenditures by category data from the database
+    # and organize it as a dictionary
+    expenditures = {'bills': 12000.0, 'entertainment': 5000.0, 'food': 3000.0, 'housing': 20000.0}
+    return jsonify(expenditures)
+
 if __name__ == "__main__":  # true if this file NOT imported
     app.debug = True        # enable auto-reload upon code change
-    app.run(host = '0.0.0.0')
+    app.run(host = '0.0.0.0', port=80)
